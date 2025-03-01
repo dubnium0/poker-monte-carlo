@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Özelleştirilebilir Poker Simülasyonu</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Özelleştirilebilir Poker Simülasyonu</h1>
+    <p>Oyuncu kartlarını ve ortak kartları manuel olarak seçin, olasılıkları görün.</p>
+    
+    <div id="canvas-container"></div>
+    
+    <div class="control-panel">
+      <div class="section">
+        <div class="section-title">Oyuncu Kartları</div>
+        
+        <div class="player-container" id="player1">
+          <span>Oyuncu 1: </span>
+          <div class="card-selector">
+            <select id="player1-card1-value" onchange="updateCardSelection(1, 1)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="player1-card1-suit" onchange="updateCardSelection(1, 1)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+            
+            <select id="player1-card2-value" onchange="updateCardSelection(1, 2)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="player1-card2-suit" onchange="updateCardSelection(1, 2)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="player-container" id="player2">
+          <span>Oyuncu 2: </span>
+          <div class="card-selector">
+            <select id="player2-card1-value" onchange="updateCardSelection(2, 1)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="player2-card1-suit" onchange="updateCardSelection(2, 1)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+            
+            <select id="player2-card2-value" onchange="updateCardSelection(2, 2)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="player2-card2-suit" onchange="updateCardSelection(2, 2)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="player-container" id="player3">
+          <span>Oyuncu 3: </span>
+          <div class="card-selector">
+            <select id="player3-card1-value" onchange="updateCardSelection(3, 1)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="player3-card1-suit" onchange="updateCardSelection(3, 1)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+            
+            <select id="player3-card2-value" onchange="updateCardSelection(3, 2)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="player3-card2-suit" onchange="updateCardSelection(3, 2)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="player-container" id="player4">
+          <span>Oyuncu 4: </span>
+          <div class="card-selector">
+            <select id="player4-card1-value" onchange="updateCardSelection(4, 1)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="player4-card1-suit" onchange="updateCardSelection(4, 1)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+            
+            <select id="player4-card2-value" onchange="updateCardSelection(4, 2)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="player4-card2-suit" onchange="updateCardSelection(4, 2)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section">
+        <div class="section-title">Ortak Kartlar</div>
+        
+        <div class="card-selector">
+          <!-- Flop -->
+          <div>
+            <span>Flop: </span>
+            <select id="flop1-value" onchange="updateCommunityCard(0)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="flop1-suit" onchange="updateCommunityCard(0)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+            
+            <select id="flop2-value" onchange="updateCommunityCard(1)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="flop2-suit" onchange="updateCommunityCard(1)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+            
+            <select id="flop3-value" onchange="updateCommunityCard(2)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="flop3-suit" onchange="updateCommunityCard(2)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="card-selector">
+          <!-- Turn -->
+          <div>
+            <span>Turn: </span>
+            <select id="turn-value" onchange="updateCommunityCard(3)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="turn-suit" onchange="updateCommunityCard(3)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="card-selector">
+          <!-- River -->
+          <div>
+            <span>River: </span>
+            <select id="river-value" onchange="updateCommunityCard(4)">
+              <option value="">Değer</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+              <option value="A">A</option>
+            </select>
+            <select id="river-suit" onchange="updateCommunityCard(4)">
+              <option value="">Takım</option>
+              <option value="♠">♠ Maça</option>
+              <option value="♥">♥ Kupa</option>
+              <option value="♦">♦ Karo</option>
+              <option value="♣">♣ Sinek</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section">
+        <button id="resetButton" onclick="resetSelections()">Tüm Seçimleri Sıfırla</button>
+        <button id="randomDealButton" onclick="randomDeal()">Rastgele Kart Dağıt</button>
+        <button id="calculateButton" onclick="calculateAndUpdateProbabilities()">Olasılıkları Hesapla</button>
+      </div>
+    </div>
+ <script src="main.js"></script>
+</body>
+</html>
